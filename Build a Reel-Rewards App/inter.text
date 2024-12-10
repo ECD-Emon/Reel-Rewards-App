@@ -1,0 +1,83 @@
+## Prompt 1
+I'm having an issue running my JavaScript code. Here's the error message I'm getting: 
+
+"!TypeError: Cannot set properties of null (setting 'textContent')"
+
+Please help me understand what's wrong.
+.......................................
+## Prompt 2
+I'm having issues with my JavaScript code. Submitting the promo form refreshes the page and does not run the following code as expected:
+
+promoForm.addEventListener('submit', function(event) {
+  var userCode = promoCodeInput.value;
+  var finalPrice = applyDiscount(basePrice, userCode);
+
+  if (finalPrice < basePrice) {
+    finalPriceElement.textContent = `Final Tickets Price: $${finalPrice}`;
+    promoCodeInput.disabled = true;
+  } else {
+    promoCodeInput.placeholder = 'Invalid Promo Code!'
+  }
+
+  promoCodeInput.value = '';
+});
+
+Could you help me debug and fix this?
+.....................................
+<!-- Challenge: Use ChatGPT to debug the applyDiscount function -->
+## Prompt 3
+I'm having trouble with this `applyDiscount` function. It isn't correctly applying a 50% discount only when I enter the code "HALF".
+
+###
+function applyDiscount(basePrice, userCode) {
+  var discountRate = 0;
+  if (userCode = "HALF") {
+    discountRate = 0.5;
+  }
+  var finalPrice = basePrice - basePrice * discountRate;
+  return finalPrice;
+}
+###
+
+Could you help me debug and fix this function?
+....................................................................................................................................
+## Prompt 4
+This JavaScript code works as expected, but I think it could be made more efficient and modern. Please provide a more streamlined and up-to-date version of this code.
+
+// script.js
+
+document.addEventListener('DOMContentLoaded', function () {
+    const promoForm = document.getElementById('promoForm');
+    const promoCodeInput = document.getElementById('promoCode');
+    const finalPriceElement = document.getElementById('finalPrice');
+
+    // Base price of the ticket
+    const basePrice = 100;
+
+    // Promo codes and their corresponding discounts
+    const promoCodes = {
+        REEL10: 10, // 10% discount
+        REEL20: 20, // 20% discount
+        REEL50: 50  // 50% discount
+    };
+
+    // Handle form submission
+    promoForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form from refreshing the page
+
+        const promoCode = promoCodeInput.value.trim().toUpperCase(); // Get user input and normalize it
+        const discount = promoCodes[promoCode]; // Check if promo code exists in the object
+
+        if (discount) {
+            const finalPrice = basePrice - (basePrice * discount / 100);
+            finalPriceElement.textContent = `🎉 Discount applied! Final price: $${finalPrice.toFixed(2)}`;
+            finalPriceElement.style.color = 'green'; // Show success message in green
+        } else {
+            finalPriceElement.textContent = '❌ Invalid promo code. Please try again.';
+            finalPriceElement.style.color = 'red'; // Show error message in red
+        }
+
+        promoCodeInput.value = ''; // Clear the input field
+    });
+});
+
